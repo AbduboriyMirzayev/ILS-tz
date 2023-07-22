@@ -1,8 +1,11 @@
 import mapRoutes from "constants/mapRoutes";
-import { Marker, useMapEvents } from "react-leaflet";
+import { Marker, useMapEvents, Polyline } from "react-leaflet";
 import L from "leaflet";
+import { useAppSelector } from "hooks/storeHooks";
 
 function Markers() {
+  const { route } = useAppSelector((state) => state.route);
+
   const map = useMapEvents({
     click(e) {
       console.log(e.latlng);
@@ -23,6 +26,16 @@ function Markers() {
       {mapRoutes[0].map((latlang) => (
         <Marker position={latlang} />
       ))}
+      {/* {route?.length && ( */}
+      <Polyline
+        positions={[
+          { lat: 59.983762, lng: 30.311365 },
+          { lat: 59.98923, lng: 30.313126 },
+          { lat: 59.994342, lng: 30.318571 },
+        ]}
+        color="red"
+      />
+      {/* )} */}
     </div>
   );
 }
